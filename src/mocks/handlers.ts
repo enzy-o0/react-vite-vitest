@@ -8,4 +8,12 @@ export const handlers = [
             { name: 'Vanilla', immagePath: '/images/vanilla.png' },
         ]);
     }),
+    http.get('http://localhost:3030/toppings', () => {
+        // Note that you DON'T have to stringify the JSON!
+        return HttpResponse.json([
+            { name: 'Cherries', immagePath: '/images/cherries.png' },
+            { name: 'M&Ms', immagePath: '/images/m-and-ms.png' },
+            { name: 'Hot fudge', immagePath: '/images/hot-fudge.png' },
+        ]);
+    }),
 ];

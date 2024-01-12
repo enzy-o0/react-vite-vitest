@@ -1,6 +1,18 @@
 import React from 'react';
 import './App.css';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import OrderSummary from './pages/summary/OrderSummary';
+import Entry from './pages/entry/Entry';
 
-function App() {}
+function App() {
+    return (
+        <BrowserRouter>
+            <Routes>
+                <Route path="/" element={<Entry />} />
+                <Route path="/summary" element={<OrderSummary />} />
+            </Routes>
+        </BrowserRouter>
+    );
+}
 
 export default App;

@@ -1,9 +1,12 @@
-import React from 'react'
+import React from 'react';
+import SummaryForm from './components/SummaryForm';
 
 const OrderSummary = () => {
-  return (
-    <div>OrderSummary</div>
-  )
-}
+    return (
+        <div>
+            <SummaryForm />
+        </div>
+    );
+};
 
-export default OrderSummary
+export default OrderSummary;
