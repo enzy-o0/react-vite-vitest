@@ -1,13 +1,21 @@
 import React from 'react';
-import { Button, Form } from 'react-bootstrap';
+import { Button, Form, OverlayTrigger, Popover } from 'react-bootstrap';
 
 const SummaryForm = () => {
     const [checkboxIsChecked, setCheckboxIsChecked] = React.useState(false);
 
+    const popover = (
+        <Popover id="popover-basic">
+            <Popover.Body>아이스크림이 실제로 배달되지 않습니다. 주의 요망!!</Popover.Body>
+        </Popover>
+    );
+
     const checkboxLabel = (
-        <span>
-            동의합니다. <span style={{ color: 'blue' }}>약관 동의</span>
-        </span>
+        <OverlayTrigger placement="right" overlay={popover}>
+            <span>
+                동의합니다. <span style={{ color: 'blue' }}>약관 동의</span>
+            </span>
+        </OverlayTrigger>
     );
 
     const checkboxOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {

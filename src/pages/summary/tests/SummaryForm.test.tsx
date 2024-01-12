@@ -1,5 +1,6 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import SummaryForm from '../components/SummaryForm';
+import userEvent from '@testing-library/user-event';
 
 test('Initial conditions', () => {
     render(<SummaryForm />);
@@ -11,18 +12,40 @@ test('Initial conditions', () => {
     expect(buttonElement).toBeDisabled();
 });
 
+test('Checbox disables button on first click and enables on second click', async () => {
+    const user = userEvent.setup();
 
-test('Checbox disables button on first click and enables on second click', () => {
     render(<SummaryForm />);
 
     const buttonElement = screen.getByRole('button', { name: /구매하기/ });
     const checkboxElement = screen.getByRole('checkbox');
 
-    fireEvent.click(checkboxElement);
+    await user.click(checkboxElement);
     expect(buttonElement).toBeEnabled();
 
-    fireEvent.click(checkboxElement);
-    expect(checkboxElement).not.toBeChecked();
+    await user.click(checkboxElement);
     expect(buttonElement).toBeDisabled();
-
 });
+
+test("popover responds to hover", async () => {
+    const user = userEvent.setup();
+    render(<SummaryForm />);
+
+    const nullPopover = screen.queryByText(/아이스크림이 실제로 배달되지 않습니다/);
+    // popover starts out hidden
+    // expect(nullPopover).toBeNull();
+    // lint가 추천함... 나는 왜 안뜨지?
+    expect(nullPopover).not.toBeInTheDocument();
+
+    // popover appears on mouseover of checkbox label
+    const termsAndConditions = screen.getByText(/동의합니다/);
+    await user.hover(termsAndConditions);
+
+    const popover = screen.getByText(/아이스크림이 실제로 배달되지 않습니다/);
+    expect(popover).toBeInTheDocument();
+
+    // popover disappears when we mouse out
+    await user.unhover(termsAndConditions);
+    expect(nullPopover).not.toBeInTheDocument();
+
+})
