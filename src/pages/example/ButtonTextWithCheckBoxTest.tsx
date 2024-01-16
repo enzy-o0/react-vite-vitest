@@ -12,7 +12,7 @@ const ButtonTextWithCheckBoxTest = () => {
         setButtonColor(nextColorClass);
     }
 
-    function onChangeCheckBox(e) {
+    function onChangeCheckBox(e: React.ChangeEvent<HTMLInputElement>) {
         setDisabled(e.target.checked);
     }
 

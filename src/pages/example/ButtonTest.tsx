@@ -11,7 +11,7 @@ const ButtonTest = () => {
     return (
         <div>
             <h1>I'm gonna learn React Testing Library</h1>
-            <button onClick={onClickButton}>Change to {nextColorClass}</button>
+            <button className={buttonColor} onClick={onClickButton}>Change to {nextColorClass}</button>
         </div>
     );
 };

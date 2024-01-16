@@ -6,7 +6,7 @@ test('displays image for each scoop option from server', async () => {
     render(<Options optionType={'scoops'} />);
 
     // 이미지 찾기
-    const scoopImages = await screen.findAllByRole('img', { name: /scoop$/i });
+    const scoopImages = (await screen.findAllByRole('img', { name: /scoop$/i })) as [HTMLInputElement];
     expect(scoopImages).toHaveLength(2);
 
     // 이미지 alt text 찾기
@@ -18,7 +18,7 @@ test('displays image for each topping option from server', async () => {
     render(<Options optionType={'toppings'} />);
 
     // 이미지 찾기
-    const toppingsImages = await screen.findAllByRole('img', { name: /topping$/i });
+    const toppingsImages = (await screen.findAllByRole('img', { name: /topping$/i })) as [HTMLInputElement];
     expect(toppingsImages).toHaveLength(3);
 
     // 이미지 alt text 찾기

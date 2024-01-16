@@ -1,4 +1,3 @@
-import React from 'react';
 import SummaryForm from './components/SummaryForm';
 import { useOrderDetails } from '../../contexts/OrderDetails';
 import { formatCurrency } from '../../utilities';

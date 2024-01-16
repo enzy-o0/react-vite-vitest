@@ -1,8 +1,7 @@
-import React from 'react';
 import { Alert } from 'react-bootstrap';
 
 type AlertBannerPropType = {
-    message: string;
+    message?: string;
     variant: 'danger' | 'warning';
 };
 

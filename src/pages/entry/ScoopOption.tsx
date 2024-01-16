@@ -1,4 +1,3 @@
-import React from 'react';
 import { OptionResponseType } from './Options';
 import Col from 'react-bootstrap/Col';
 import { useOrderDetails } from '../../contexts/OrderDetails';
@@ -7,7 +6,7 @@ import Row from 'react-bootstrap/Row';
 
 const ScoopOption = ({ name, imagePath }: OptionResponseType) => {
     const { updateItemCount } = useOrderDetails();
-    const handleChange = (e) => updateItemCount(name, parseInt(e.target.value), 'scoops');
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => updateItemCount(name, parseInt(e.target.value), 'scoops');
 
     return (
         <Col xs={12} sm={6} md={4} lg={3} style={{ textAlign: 'center' }}>
