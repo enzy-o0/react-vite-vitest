@@ -1,8 +1,10 @@
 import React from 'react';
 import { Button, Form, OverlayTrigger, Popover } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 
-const SummaryForm = () => {
+const SummaryForm = ({setOrderPhase}) => {
     const [checkboxIsChecked, setCheckboxIsChecked] = React.useState(false);
+    // const navigate = useNavigate();
 
     const popover = (
         <Popover id="popover-basic">
@@ -13,7 +15,7 @@ const SummaryForm = () => {
     const checkboxLabel = (
         <OverlayTrigger placement="right" overlay={popover}>
             <span>
-                동의합니다. <span style={{ color: 'blue' }}>약관 동의</span>
+                동의가 필요합니다<span style={{ color: 'blue' }}>약관 동의</span>
             </span>
         </OverlayTrigger>
     );
@@ -22,10 +24,14 @@ const SummaryForm = () => {
         setCheckboxIsChecked(e.target.checked);
     };
 
-    const buttonOnClick = () => {};
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        // navigate('/confirmation');
+        setOrderPhase('completed');
+    };
 
     return (
-        <Form>
+        <Form onSubmit={handleSubmit}>
             <Form.Group controlId="terms-and-conditions">
                 <Form.Check
                     type="checkbox"
@@ -34,8 +40,8 @@ const SummaryForm = () => {
                     label={checkboxLabel}
                 />
             </Form.Group>
-            <Button variant="primary" type="submit" disabled={!checkboxIsChecked} onClick={buttonOnClick}>
-                구매하기
+            <Button variant="primary" type="submit" disabled={!checkboxIsChecked}>
+                주문 확인하기
             </Button>
         </Form>
     );
