@@ -9,15 +9,15 @@ import { HttpResponse, http } from 'msw';
 test('order phases for happy path', async () => {
     const user = userEvent.setup();
     // render app
-    const {unmount } = render(<App />)
+    const { unmount } = render(<App />)
     
     // add ice crean scoops and toppings
 
-    const vanillaInut = await screen.findByRole("spinbutton", {
+    const vanillaInput = await screen.findByRole("spinbutton", {
         name: "Vanilla",
     });
-    await user.clear(vanillaInut);
-    await user.type(vanillaInut, "1");
+    await user.clear(vanillaInput);
+    await user.type(vanillaInput, "1");
 
     const chocolateInput = await screen.findByRole("spinbutton", {
         name: "Chocolate",
@@ -84,21 +84,106 @@ test('order phases for happy path', async () => {
 
     expect(thankYouHeader).toBeInTheDocument();
 
-    const notLoading = screen.getByText(/loading/i);
+    const notLoading = screen.queryByText(/loading/i);
     expect(notLoading).not.toBeInTheDocument();
 
     // click "new order" button on confirmation page
     const orderNumber = await screen.findByText(/주문 번호/);
     expect(orderNumber).toBeInTheDocument();
 
+    const orderResetButton = screen.getByRole("button", {
+        name: /새로운 주문하기/,
+    })
+    await user.click(orderResetButton);
+
+
     // check that scoops and toppings subtotals have been reset
 
     const scoopsTotal = await screen.findByText("Scoops total: $0.00");
     expect(scoopsTotal).toBeInTheDocument();
 
-    const toppingsTotal = await screen.getByText("Toppings total: $0.00");
+    const toppingsTotal = screen.getByText("Toppings total: $0.00");
     expect(toppingsTotal).toBeInTheDocument();
 
 
     unmount();
+});
+
+test("Toppings header is not on summary page if no toppings ordered", async () => {
+    const user = userEvent.setup();
+
+    render(<App />);
+
+    const vanillaInut = await screen.findByRole("spinbutton", {
+        name: "Vanilla",
+    });
+    await user.clear(vanillaInut);
+    await user.type(vanillaInut, "1");
+
+    const chorolateInut = await screen.findByRole("spinbutton", {
+        name: "Chocolate",
+    });
+
+    await user.clear(chorolateInut);
+    await user.type(chorolateInut, "2");
+
+    const orderSummaryButton = screen.getByRole("button", {
+        name: /주문하기/,
+    });
+
+    await user.click(orderSummaryButton);
+
+    const scoopsHeading = screen.getByRole("heading", {
+        name: "Scoops: $6.00"
+    });
+    expect(scoopsHeading).toBeInTheDocument();
+
+    const toppingsHeading = screen.queryByRole("heading", {
+        name: /toppings/i
+    });
+    expect(toppingsHeading).not.toBeInTheDocument();
+});
+
+test("Toppings header is not on summary page if toppings ordered, then removed", async () => {
+    const user = userEvent.setup();
+
+    render(<App />);
+
+    const vanillaInut = await screen.findByRole("spinbutton", {
+        name: "Vanilla",
+    });
+    await user.clear(vanillaInut);
+    await user.type(vanillaInut, "1");
+
+    const cherriesTopping = await screen.findByRole("checkbox", {
+        name: "Cherries",
+    });
+
+    await user.click(cherriesTopping);
+    expect(cherriesTopping).toBeChecked();
+    const toppingsTotal = screen.getByText("Toppings total: $", {
+        exact: false
+    });
+    expect(toppingsTotal).toHaveTextContent("1.50");
+
+    await user.click(cherriesTopping);
+    expect(cherriesTopping).not.toBeChecked();
+    expect(toppingsTotal).toHaveTextContent("0.00");
+
+    const orderSummaryButton = screen.getByRole("button", {
+        name: /주문하기/
+    });
+
+    await user.click(orderSummaryButton);
+
+    const scoopsHeading  = screen.getByRole("heading", {
+        name: "Scoops: $2.00"
+    });
+    expect(scoopsHeading).toBeInTheDocument();
+
+    const toppingsHeading = screen.queryByRole("heading", {
+        name: "Toppings: $1.50",
+    });
+
+    expect(toppingsHeading).not.toBeInTheDocument();
 });
