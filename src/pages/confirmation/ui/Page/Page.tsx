@@ -5,8 +5,9 @@ import Container from 'react-bootstrap/esm/Container';
 // import { useNavigate } from 'react-router-dom';
 import { useOrderDetails } from '@/app/OrderDetailsProvider';
 import { AlertBanner } from '@/shared/ui/Alert/AlertBanner';
+import type { OrderPhaseComponentPropType } from '@/shared/type/orderPhaseType';
 
-export const OrderConfirmationPage = ({ setOrderPhase }) => {
+export const OrderConfirmationPage = ({ setOrderPhase }: OrderPhaseComponentPropType) => {
     const [orderNumber, setOrderNumber] = React.useState(null);
     const [error, setError] = React.useState(false);
     // const navigate = useNavigate();
@@ -25,7 +26,7 @@ export const OrderConfirmationPage = ({ setOrderPhase }) => {
                 console.log(response.data);
                 setOrderNumber(response.data.orderNumber);
             })
-            .catch((e) => {
+            .catch(() => {
                 setError(true);
             });
     }, []);
@@ -34,9 +35,10 @@ export const OrderConfirmationPage = ({ setOrderPhase }) => {
 
     if (error) {
         return (
-            <AlertBanner message={null} variant={null}>
+            <>
+                <AlertBanner message={null} variant={null} />
                 {newOrderButton}
-            </AlertBanner>
+            </>
         );
     }
 

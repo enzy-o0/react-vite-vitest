@@ -4,12 +4,9 @@ import { formatCurrency } from '@/shared/lib/formatCurrency';
 // import OrderSusmmary from '@/summary/OrderSummary';
 // import { useNavigate } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
+import type { OrderPhaseComponentPropType } from '@/shared/type/orderPhaseType';
 
-interface OrderEntryType {
-    setOrderPhase: (T) => void;
-}
-
-export const OrderEntryPage = ({ setOrderPhase }: OrderEntryType) => {
+export const OrderEntryPage = ({ setOrderPhase }: OrderPhaseComponentPropType) => {
     const { totals } = useOrderDetails();
 
     // const navigate = useNavigate();

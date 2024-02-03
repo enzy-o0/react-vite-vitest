@@ -3,7 +3,7 @@ import SummaryForm from '../ui/SummaryForm/SummaryForm';
 import userEvent from '@testing-library/user-event';
 
 test('Initial conditions', () => {
-    render(<SummaryForm />);
+    render(<SummaryForm  setOrderPhase={vi.fn()}/>);
 
     const buttonElement = screen.getByRole('button', { name: /주문 확인하기/ });
     const checkboxElement = screen.getByRole('checkbox');
@@ -15,7 +15,7 @@ test('Initial conditions', () => {
 test('Checbox disables button on first click and enables on second click', async () => {
     const user = userEvent.setup();
 
-    render(<SummaryForm />);
+    render(<SummaryForm setOrderPhase={vi.fn()}/>);
 
     const buttonElement = screen.getByRole('button', { name: /주문 확인하기/ });
     const checkboxElement = screen.getByRole('checkbox');
@@ -29,7 +29,7 @@ test('Checbox disables button on first click and enables on second click', async
 
 test("popover responds to hover", async () => {
     const user = userEvent.setup();
-    render(<SummaryForm />);
+    render(<SummaryForm setOrderPhase={vi.fn()}/>);
 
     const nullPopover = screen.queryByText(/아이스크림이 실제로 배달되지 않습니다/);
     // popover starts out hidden

@@ -5,11 +5,13 @@ import { OrderConfirmationPage } from '@/pages/confirmation';
 import React from 'react';
 import { Container } from 'react-bootstrap';
 import { OrderEntryPage } from '@/pages/entry';
+import { OrderPhaseComponentPropType, OrderPhaseType } from '@/shared/type/orderPhaseType';
 
 function App() {
-    const [orderPhase, setOrderPhase] = React.useState('inProgress');
+    const [orderPhase, setOrderPhase] = React.useState<OrderPhaseType>('inProgress');
 
-    let Component: ({ setOrderPhase }) => JSX.Element = OrderEntryPage;
+    // eslint-disable-next-line no-unused-vars
+    let Component: ({ setOrderPhase }: OrderPhaseComponentPropType) => JSX.Element = OrderEntryPage;
 
     switch (orderPhase) {
         case 'inProgress':

@@ -1,8 +1,9 @@
 import SummaryForm from '../SummaryForm/SummaryForm';
 import { useOrderDetails } from '@/app/OrderDetailsProvider';
 import { formatCurrency } from '@/shared/lib/formatCurrency';
+import { OrderPhaseComponentPropType } from '@/shared/type/orderPhaseType';
 
-export const OrderSummaryPage = ({ setOrderPhase }) => {
+export const OrderSummaryPage = ({ setOrderPhase }: OrderPhaseComponentPropType) => {
     const { totals, optionCounts } = useOrderDetails();
 
     const scoopArray = Object.entries(optionCounts.scoops);
@@ -17,7 +18,7 @@ export const OrderSummaryPage = ({ setOrderPhase }) => {
 
     if (hasToppings) {
         const toppingArray = Object.entries(optionCounts.toppings);
-        const toppingList = toppingArray.map(([key, value]) => <li key={key}>{key}</li>);
+        const toppingList = toppingArray.map(([key]) => <li key={key}>{key}</li>);
 
         toppingsDisplay = (
             <>

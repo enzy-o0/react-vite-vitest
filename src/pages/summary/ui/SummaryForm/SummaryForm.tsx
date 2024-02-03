@@ -1,8 +1,9 @@
-import React from 'react';
+import { OrderPhaseComponentPropType } from '@/shared/type/orderPhaseType';
+import React, { type FormEvent } from 'react';
 import { Button, Form, OverlayTrigger, Popover } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 
-const SummaryForm = ({setOrderPhase}) => {
+const SummaryForm = ({setOrderPhase}: OrderPhaseComponentPropType) => {
     const [checkboxIsChecked, setCheckboxIsChecked] = React.useState(false);
     // const navigate = useNavigate();
 
@@ -24,7 +25,7 @@ const SummaryForm = ({setOrderPhase}) => {
         setCheckboxIsChecked(e.target.checked);
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         // navigate('/confirmation');
         setOrderPhase('completed');

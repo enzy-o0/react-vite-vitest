@@ -59,7 +59,7 @@ test('update topping subtotal when toppings chagned', async () => {
 
 describe('grand total', () => {
     test('grand total starts at $0.00', () => {
-        const { unmount } = render(<OrderEntryPage />);
+        const { unmount } = render(<OrderEntryPage setOrderPhase={vi.fn()}/>);
 
         // const grandTotal = screen.getByText('Grand total: $', {
         //     exact: false,
@@ -77,7 +77,7 @@ describe('grand total', () => {
     test('grand total updates properly if scoop is added first', async () => {
         const user = userEvent.setup();
 
-        render(<OrderEntryPage />);
+        render(<OrderEntryPage setOrderPhase={vi.fn()}/>);
 
         // const grandTotal = screen.getByText('Grand total: $', {
         //     exact: false,
@@ -103,7 +103,7 @@ describe('grand total', () => {
     test('grand total updates properly if toppings is added first', async () => {
         const user = userEvent.setup();
 
-        render(<OrderEntryPage />);
+        render(<OrderEntryPage setOrderPhase={vi.fn()}/>);
 
         const chrriesInput = await screen.findByRole('checkbox', { name: 'Cherries' });
         await user.click(chrriesInput);
@@ -123,7 +123,7 @@ describe('grand total', () => {
     });
     test('grand total updates properly if item is removed', async () => {
         const user = userEvent.setup();
-        render(<OrderEntryPage />);
+        render(<OrderEntryPage setOrderPhase={vi.fn()} />);
 
         const cherriesCheckbox = await screen.findByRole('checkbox', {
             name: 'Cherries',
