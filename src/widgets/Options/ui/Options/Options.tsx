@@ -21,14 +21,15 @@ export const Options = ({ optionType }: OptionsPropType) => {
     const [items, setItems] = useState([]);
     const [error, setError] = useState<boolean | string>(false);
     const { totals } = useOrderDetails();
- 
+
+    const URL = import.meta.env.API_URL;
+
     React.useEffect(() => {
         // create an abortController to attach to network request
         const controller = new AbortController();
 
         axios
-            // .get(`http://localhost:3030/${optionType}`)
-            .get(`http://localhost:3030/${optionType}`, {
+            .get(`${URL}/${optionType}`, {
                 signal: controller.signal,
             })
             .then((response) => setItems(response.data))

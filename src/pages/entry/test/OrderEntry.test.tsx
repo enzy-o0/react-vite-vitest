@@ -5,14 +5,16 @@ import { http, HttpResponse } from 'msw';
 import { server } from '@/app/apiMockServer';
 import userEvent from '@testing-library/user-event';
 
+const URL = import.meta.env.API_URL;
+
 test('handles error for scoops and toppings routes', async () => {
     server.resetHandlers(
-        http.get('http://localhost:3030/scoops', () => {
+        http.get(`${URL}/scoops`, () => {
             return new HttpResponse(null, {
                 status: 500,
             });
         }),
-        http.get('http://localhost:3030/toppings', () => {
+        http.get(`${URL}/toppings`, () => {
             return new HttpResponse(null, {
                 status: 500,
             });
@@ -20,7 +22,7 @@ test('handles error for scoops and toppings routes', async () => {
     );
 
     // const { container } = render(<OrderEntry />);
-    render(<OrderEntryPage setOrderPhase={vi.fn()}/>);
+    render(<OrderEntryPage setOrderPhase={vi.fn()} />);
 
     const alerts = await screen.findAllByRole('alert', {
         // name: '예상되지 않은 에러가 있습니다. 추후에 다시 시도해주세요.',

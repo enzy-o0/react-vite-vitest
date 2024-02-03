@@ -7,6 +7,8 @@ import { useOrderDetails } from '@/app/OrderDetailsProvider';
 import { AlertBanner } from '@/shared/ui/Alert/AlertBanner';
 import type { OrderPhaseComponentPropType } from '@/shared/type/orderPhaseType';
 
+const URL = import.meta.env.API_URL;
+
 export const OrderConfirmationPage = ({ setOrderPhase }: OrderPhaseComponentPropType) => {
     const [orderNumber, setOrderNumber] = React.useState(null);
     const [error, setError] = React.useState(false);
@@ -21,7 +23,7 @@ export const OrderConfirmationPage = ({ setOrderPhase }: OrderPhaseComponentProp
 
     React.useEffect(() => {
         axios
-            .post('http://localhost:3030/order')
+            .post(`${URL}/order`)
             .then((response) => {
                 console.log(response.data);
                 setOrderNumber(response.data.orderNumber);
