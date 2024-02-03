@@ -5,7 +5,7 @@ type AlertBannerPropType = {
     variant: 'danger' | 'warning';
 };
 
-const AlertBanner = ({ message, variant }: AlertBannerPropType) => {
+export const AlertBanner = ({ message, variant }: AlertBannerPropType) => {
     const alertMessage = message || '예상되지 않은 오류가 있습니다. 잠시 후에 다시 시도해주세요';
     const alertVariant = variant || 'danger';
 
@@ -15,5 +15,3 @@ const AlertBanner = ({ message, variant }: AlertBannerPropType) => {
         </Alert>
     );
 };
-
-export default AlertBanner;

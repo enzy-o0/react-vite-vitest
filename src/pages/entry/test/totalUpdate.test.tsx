@@ -1,7 +1,7 @@
-import { render, screen } from '../../../test-utils/testing-library-utils';
-import Options from '../Options';
+import { render, screen } from '@/shared/lib';
+import { Options } from '@/widgets/Options/ui/Options/Options';
 import userEvent from '@testing-library/user-event';
-import OrderEntry from '../OrderEntry';
+import { OrderEntryPage } from '@/pages/entry';
 
 test('update scoop subtotal when scoops chagned', async () => {
     const user = userEvent.setup();
@@ -59,7 +59,7 @@ test('update topping subtotal when toppings chagned', async () => {
 
 describe('grand total', () => {
     test('grand total starts at $0.00', () => {
-        const { unmount } = render(<OrderEntry />);
+        const { unmount } = render(<OrderEntryPage />);
 
         // const grandTotal = screen.getByText('Grand total: $', {
         //     exact: false,
@@ -77,7 +77,7 @@ describe('grand total', () => {
     test('grand total updates properly if scoop is added first', async () => {
         const user = userEvent.setup();
 
-        render(<OrderEntry />);
+        render(<OrderEntryPage />);
 
         // const grandTotal = screen.getByText('Grand total: $', {
         //     exact: false,
@@ -103,7 +103,7 @@ describe('grand total', () => {
     test('grand total updates properly if toppings is added first', async () => {
         const user = userEvent.setup();
 
-        render(<OrderEntry />);
+        render(<OrderEntryPage />);
 
         const chrriesInput = await screen.findByRole('checkbox', { name: 'Cherries' });
         await user.click(chrriesInput);
@@ -123,7 +123,7 @@ describe('grand total', () => {
     });
     test('grand total updates properly if item is removed', async () => {
         const user = userEvent.setup();
-        render(<OrderEntry />);
+        render(<OrderEntryPage />);
 
         const cherriesCheckbox = await screen.findByRole('checkbox', {
             name: 'Cherries',

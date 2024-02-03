@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react-swc';
+import path from 'path';
 
 import type { InlineConfig } from 'vitest';
 import type { UserConfig } from 'vite';
@@ -20,5 +21,8 @@ export default defineConfig({
         },
         setupFiles: './src/setupVitest.ts',
         css: true,
+    },
+    resolve: {
+        alias: [{ find: '@', replacement: path.resolve(__dirname, 'src') }],
     },
 } as VitestConfigExport);

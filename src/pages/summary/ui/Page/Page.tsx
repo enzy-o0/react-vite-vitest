@@ -1,8 +1,8 @@
-import SummaryForm from './components/SummaryForm';
-import { useOrderDetails } from '../../contexts/OrderDetails';
-import { formatCurrency } from '../../utilities';
+import SummaryForm from '../SummaryForm/SummaryForm';
+import { useOrderDetails } from '@/app/OrderDetailsProvider';
+import { formatCurrency } from '@/shared/lib/formatCurrency';
 
-const OrderSummary = ( {setOrderPhase}) => {
+export const OrderSummaryPage = ({ setOrderPhase }) => {
     const { totals, optionCounts } = useOrderDetails();
 
     const scoopArray = Object.entries(optionCounts.scoops);
@@ -24,9 +24,8 @@ const OrderSummary = ( {setOrderPhase}) => {
                 <h2>Toppings: {formatCurrency(totals.toppings)}</h2>
                 <ul>{toppingList}</ul>
             </>
-        )
+        );
     }
-
 
     return (
         <div>
@@ -38,5 +37,3 @@ const OrderSummary = ( {setOrderPhase}) => {
         </div>
     );
 };
-
-export default OrderSummary;

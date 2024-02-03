@@ -1,6 +1,6 @@
 import React from 'react';
 import type { ReactNode } from 'react';
-import { pricePerItem } from '../constants';
+import { pricePerItem } from '@/shared/consts';
 
 export type OptionType = 'scoops' | 'toppings';
 type StrictPropsWithChildren<P = unknown> = P & {
@@ -30,8 +30,6 @@ interface OrderDetailsContextType {
 
 const OrderDetailsContext = React.createContext<OrderDetailsContextType | null>(null);
 
-// create custom hook to check whether we're in a provider
-
 export function useOrderDetails() {
     const contextValue = React.useContext(OrderDetailsContext);
 
@@ -41,6 +39,8 @@ export function useOrderDetails() {
 
     return contextValue;
 }
+
+// create custom hook to check whether we're in a provider
 
 export function OrderDetailsProvider(props: StrictPropsWithChildren) {
     const [optionCounts, setOptionCounts] = React.useState<OptionCountsType>({

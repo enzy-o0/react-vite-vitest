@@ -1,26 +1,25 @@
-import './App.css';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import OrderSummary from './pages/summary/OrderSummary';
-import { OrderDetailsProvider } from './contexts/OrderDetails';
-import OrderConfirmation from './pages/confirmation/OrderConfirmation';
-import OrderEntry from './pages/entry/OrderEntry';
+import '../App.css';
+import { OrderSummaryPage } from '@/pages/summary';
+import { OrderDetailsProvider } from './OrderDetailsProvider';
+import { OrderConfirmationPage } from '@/pages/confirmation';
 import React from 'react';
 import { Container } from 'react-bootstrap';
+import { OrderEntryPage } from '@/pages/entry';
 
 function App() {
     const [orderPhase, setOrderPhase] = React.useState('inProgress');
-    
-    let Component = OrderEntry;
 
-    switch(orderPhase) {
+    let Component: ({ setOrderPhase }) => JSX.Element = OrderEntryPage;
+
+    switch (orderPhase) {
         case 'inProgress':
-            Component = OrderEntry;
+            Component = OrderEntryPage;
             break;
         case 'review':
-            Component = OrderSummary;
+            Component = OrderSummaryPage;
             break;
         case 'completed':
-            Component = OrderConfirmation;
+            Component = OrderConfirmationPage;
             break;
         default:
     }
@@ -29,9 +28,7 @@ function App() {
             {/* <OrderEntry />
             <OrderSummary />
             <OrderConfirmation /> */}
-            <Container>
-                {<Component setOrderPhase={setOrderPhase} />}
-            </Container>
+            <Container>{<Component setOrderPhase={setOrderPhase} />}</Container>
             {/* <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<OrderEntry />} />
@@ -40,7 +37,6 @@ function App() {
                 </Routes>
             </BrowserRouter> */}
         </OrderDetailsProvider>
-     
     );
 }
 

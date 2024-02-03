@@ -1,6 +1,6 @@
-import { OptionResponseType } from './Options';
+import { OptionResponseType } from '../Options/Options';
 import Col from 'react-bootstrap/Col';
-import { useOrderDetails } from '../../contexts/OrderDetails';
+import { useOrderDetails } from '@/app/OrderDetailsProvider';
 import Form from 'react-bootstrap/esm/Form';
 import Row from 'react-bootstrap/Row';
 import React from 'react';
@@ -15,11 +15,9 @@ const ScoopOption = ({ name, imagePath }: OptionResponseType) => {
         // const currentValueInteger = parseInt(currentValue);
         // Number.isInteger(currentValueInteger);
 
-        const valueIsValid = 
-            0 <= currentValueFoat && 
-            currentValueFoat <= 10 && 
-            Math.floor(currentValueFoat) === currentValueFoat;
-        
+        const valueIsValid =
+            0 <= currentValueFoat && currentValueFoat <= 10 && Math.floor(currentValueFoat) === currentValueFoat;
+
         setIsValid(valueIsValid);
 
         const newValue = valueIsValid ? parseInt(currentValue) : 0;
@@ -43,7 +41,13 @@ const ScoopOption = ({ name, imagePath }: OptionResponseType) => {
                     {name}
                 </Form.Label>
                 <Col xs="5" style={{ textAlign: 'left' }}>
-                    <Form.Control max={10} isInvalid={!isValid} type="number" defaultValue={0} onChange={handleChange}></Form.Control>
+                    <Form.Control
+                        max={10}
+                        isInvalid={!isValid}
+                        type="number"
+                        defaultValue={0}
+                        onChange={handleChange}
+                    ></Form.Control>
                 </Col>
             </Form.Group>
         </Col>

@@ -1,8 +1,8 @@
-import { findByRole, render, screen } from '../../../test-utils/testing-library-utils';
-import OrderEntry from '../OrderEntry';
+import { render, screen } from '@/shared/lib';
+import { OrderEntryPage } from '@/pages/entry';
 
 import { http, HttpResponse } from 'msw';
-import { server } from '../../../mocks/server';
+import { server } from '@/app/apiMockServer';
 import userEvent from '@testing-library/user-event';
 
 test('handles error for scoops and toppings routes', async () => {
@@ -20,7 +20,7 @@ test('handles error for scoops and toppings routes', async () => {
     );
 
     // const { container } = render(<OrderEntry />);
-    render(<OrderEntry />);
+    render(<OrderEntryPage setOrderPhase={vi.fn()}/>);
 
     const alerts = await screen.findAllByRole('alert', {
         // name: '예상되지 않은 에러가 있습니다. 추후에 다시 시도해주세요.',
@@ -35,26 +35,25 @@ test('handles error for scoops and toppings routes', async () => {
 
 test('disable order button if there are no scoops ordered', async () => {
     const user = userEvent.setup();
-    render(<OrderEntry setOrderPhase={vi.fn()}/>);
+    render(<OrderEntryPage setOrderPhase={vi.fn()} />);
 
-    const orderButton = screen.getByRole("button", {
-        name: /주문하기/
+    const orderButton = screen.getByRole('button', {
+        name: /주문하기/,
     });
 
     expect(orderButton).toBeDisabled();
 
-    const vanillaInput = await screen.findByRole("spinbutton", {
-        name: "Vanilla"
-    })
+    const vanillaInput = await screen.findByRole('spinbutton', {
+        name: 'Vanilla',
+    });
 
     await user.clear(vanillaInput);
-    await user.type(vanillaInput, "1");
+    await user.type(vanillaInput, '1');
 
     expect(orderButton).toBeEnabled();
 
     await user.clear(vanillaInput);
-    await user.type(vanillaInput, "0");
-    
+    await user.type(vanillaInput, '0');
+
     expect(orderButton).toBeDisabled();
-    
 });

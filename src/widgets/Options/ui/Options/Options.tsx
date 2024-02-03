@@ -1,12 +1,12 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import Row from 'react-bootstrap/Row';
-import ScoopOption from './ScoopOption';
-import ToppingOption from './ToppingOption';
-import AlertBanner from '../common/AlertBanner';
-import { pricePerItem } from '../../constants';
-import { formatCurrency } from '../../utilities';
-import { useOrderDetails } from '../../contexts/OrderDetails';
+import ScoopOption from '../ScoopOptions/ScoopOptions';
+import ToppingOption from '../ToppingOptions/ToppingOption';
+import { AlertBanner } from '@/shared/ui/Alert/AlertBanner';
+import { pricePerItem } from '@/shared/consts';
+import { formatCurrency } from '@/shared/lib/formatCurrency';
+import { useOrderDetails } from '@/app/OrderDetailsProvider';
 
 type OptionsPropType = {
     optionType: 'scoops' | 'toppings';
@@ -17,11 +17,11 @@ export type OptionResponseType = {
     imagePath: string;
 };
 
-const Options = ({ optionType }: OptionsPropType) => {
+export const Options = ({ optionType }: OptionsPropType) => {
     const [items, setItems] = useState([]);
     const [error, setError] = useState<boolean | string>(false);
     const { totals } = useOrderDetails();
-
+ 
     React.useEffect(() => {
         // create an abortController to attach to network request
         const controller = new AbortController();
@@ -64,5 +64,3 @@ const Options = ({ optionType }: OptionsPropType) => {
         </>
     );
 };
-
-export default Options;

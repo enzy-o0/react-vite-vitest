@@ -1,6 +1,6 @@
-import { OptionResponseType } from './Options';
+import { OptionResponseType } from '../Options/Options';
 import { Col, Form } from 'react-bootstrap';
-import { useOrderDetails } from '../../contexts/OrderDetails';
+import { useOrderDetails } from '@/app/OrderDetailsProvider';
 
 const ToppingOption = ({ name, imagePath }: OptionResponseType) => {
     const { updateItemCount } = useOrderDetails();
